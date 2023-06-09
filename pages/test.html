@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="comment-container"></div>
+
+    <form id="comment-form">
+      <textarea id="comment-textarea" rows="4" cols="50"></textarea>
+      <button type="submit">댓글 작성</button>
+    </form>
+
+    <script>
+      let comments = [];
+
+      const commentForm = document.getElementById("comment-form");
+      const commentTextarea = document.getElementById("comment-textarea");
+      const commentContainer = document.getElementById("comment-container");
+
+      // 댓글 작성 이벤트 핸들러
+      commentForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const commentText = commentTextarea.value;
+
+        // 새로운 댓글 객체 생성
+        const newComment = {
+          id: comments.length + 1,
+          text: commentText,
+        };
+
+        // 댓글 배열에 새로운 댓글 추가
+        comments.push(newComment);
+
+        // 댓글 화면에 표시
+        displayComments();
+
+        // 입력 필드 초기화
+        commentTextarea.value = "";
+      });
+
+      // 댓글 표시 함수
+      function displayComments() {
+        // 댓글 컨테이너 초기화
+        commentContainer.innerHTML = "";
+
+        // 댓글 배열을 순회하면서 각 댓글을 화면에 추가
+        comments.forEach(function (comment) {
+          const commentElement = document.createElement("div");
+          commentElement.classList.add("comment");
+          commentElement.textContent = comment.text;
+          commentContainer.appendChild(commentElement);
+        });
+      }
+    </script>
+  </body>
+</html>
